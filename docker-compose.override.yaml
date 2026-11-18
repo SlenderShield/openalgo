@@ -1,7 +1,9 @@
-# Murali: bind ports to localhost only. Access via `tailscale serve`.
-# `!override` replaces the base file's port list instead of adding to it.
+# Murali: per-instance settings. Defaults = Kotak instance.
+# Other instances set these in their own .env (compose reads .env for ${...}).
 services:
   openalgo:
+    image: ${IMAGE_NAME:-openalgo:latest}
+    container_name: ${CONTAINER_NAME:-openalgo-web}
     ports: !override
-      - "127.0.0.1:${FLASK_PORT:-5000}:5000"
-      - "127.0.0.1:${WEBSOCKET_PORT:-8765}:8765"
+      - "127.0.0.1:${HOST_FLASK_PORT:-5000}:5000"
+      - "127.0.0.1:${HOST_WS_PORT:-8765}:8765"
